@@ -1,0 +1,242 @@
+/**
+	Normalise:
+	thanks to: https://github.com/necolas/normalize.css/blob/master/normalize.css
+*/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+html {
+	-webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
+}
+main {
+	display: block; /* Render the `main` element consistently in IE. */
+}
+img {
+	border-style: none; /* Remove the border on images inside links in IE 10. */
+}
+a {
+	background-color: transparent; /* Remove the gray background on active links in IE 10. */
+}
+pre {
+ font-family: monospace, monospace; /* Correct the inheritance and scaling of font size in all browsers. */
+ font-size: 1em; /* Correct the odd `em` font sizing in all browsers. */
+}
+
+/* Defaults: */
+body {
+	font-family: 'Silka', Helvetica, sans-serif;
+	font-size: 1rem;
+	line-height: 1.375;
+	color: #FFF;
+	background: #333;
+}
+p {
+	margin: 1em 0;
+	font-weight: 300;
+}
+h1 {
+	margin: 0.25em 0;
+	font-weight: 600;
+	font-size: 3.75rem;
+	line-height: 1.2;
+}
+
+/* Components: */
+.page {
+	/* Below 20rem this will cause the viewport will scale. */
+	min-width: 20rem;
+}
+
+.inner {
+	display: flow-root;
+	box-sizing: border-box;
+	max-width: 64rem;
+	margin: 0 auto;
+	padding: 0 1rem;
+	background: repeating-linear-gradient(
+		to right,
+		#0001 0,
+		#0001 1rem,
+		#0000 1rem,
+		#0000 calc(((100% - 5rem) / 4) + 1rem)
+	);
+}
+@media screen and (min-width: 36rem) {
+	.inner {
+		background: repeating-linear-gradient(
+			to right,
+			#0001 0,
+			#0001 1rem,
+			#0000 1rem,
+			#0000 calc(((100% - 9rem) / 8) + 1rem)
+		);
+	}
+}
+@supports not (display: flow-root) {
+	.inner {
+		overflow: auto;
+	}
+}
+
+.max-three-quarter-width {
+	box-sizing: border-box;
+	margin: 0 auto;
+	/*
+	If this were a more complicated grid column system, padding would need to be removed from
+	parent and applied here.
+	padding-left: 1rem;
+	padding-right: 1rem;
+	*/
+}
+@media screen and (min-width: 36rem) {
+	.max-three-quarter-width {
+		max-width: 75%
+	}
+}
+
+.header {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	color: #FFF;
+	background: #0C2C3A;
+}
+.header__inner {
+	display: flex;
+	flex-direction: column;
+}
+@media screen and (min-width: 48rem) {
+	.header__inner {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.header__logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 4rem;
+	height: 2rem;
+	background: #E57767;
+}
+
+.header nav {
+	display: flex;
+	flex-direction: column;
+}
+@media screen and (min-width: 48rem) {
+	.header nav {
+		flex-direction: row;
+		align-items: center;
+	}
+}
+.header nav a,
+.header nav button {
+	margin-left: 1em;
+}
+.header nav a,
+.header nav a:link,
+.header nav a:visited {
+	color: #fff;
+	text-decoration: underline;
+}
+.header nav a:focus,
+.header nav a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+.intro-section {
+	text-align: center;
+	font-size: 1.375rem;
+	line-height: 1.5;
+	color: #fff;
+	background: #E57767;
+}
+.intro-section__inner {}
+
+.another-section {
+	color: #FFF;
+	background: #0C2C3A;
+}
+.another-section__inner {}
+
+.grid {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 0.5em;
+	grid-auto-rows: minmax(4em, auto);
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+@media only screen and (min-width: 18em)  {
+	/* breakpoint min-width derived from grid-template-columns minmax 14em + .main padding 2em + a bit extra */
+	.grid {
+		grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+		grid-gap: 1em;
+	}
+}
+.grid__item {
+	box-sizing: border-box;
+	padding: 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.footer {}
+.footer__inner {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.drawer {
+	position: relative;
+	width: 100%;
+}
+.drawer__liner {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	width: 100%;
+	transform: translate3d(0, 0, 0);
+	transition: transform 500ms ease;
+	backface-visibility: hidden;
+	will-change: transform; /* TODO: profile this, could be a mistake & better applied by JavaScript when needed. */
+}
+.drawer.is-open .drawer__liner {
+	transform: translate3d(90%, 0, 0) scale3d(1, 1, 1);
+}
+
+.drawer__shelf {}
+.drawer__main {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+}
+.drawer__main main {
+	flex-grow: 1;
+}
+
+.drawer.is-open {}
+.drawer.is-open .drawer__shelf {}
+.drawer.is-open .drawer__main {}
+
+@media only screen and (min-width: 40em)  {
+	.drawer {}
+	.drawer__liner {
+		will-change: auto;
+	}
+	.drawer__shelf {}
+	.drawer__main {}
+
+	.drawer.is-open {}
+	.drawer.is-open .drawer__liner {}
+	.drawer.is-open .drawer__shelf {}
+	.drawer.is-open .drawer__main {}
+}
